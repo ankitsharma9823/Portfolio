@@ -36,7 +36,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <Navbar />
-          <main className="pt-16">
+          <main className="pt-1">
             {children}
             <Toaster position="bottom-right" theme="dark" />
           </main>

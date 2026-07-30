@@ -11,44 +11,73 @@ const services = [
   },
   {
     title: "Frontend Engineering",
-    desc: "Building high-performance, responsive interfaces using Next.js and React. Focused on pixel-perfect fidelity and component-driven architecture.",
+    desc: "Building high-performance, responsive interfaces with Next.js and React. Focused on clean architecture and pixel-perfect UI.",
     icon: Code2,
   },
   {
     title: "API & Backend Design",
-    desc: "Robust RESTful API development with secure authentication, database modeling, and complex business logic.",
+    desc: "Robust RESTful APIs with secure authentication, solid database modeling, and clean business logic.",
     icon: Server,
   },
   {
     title: "UI/UX Implementation",
-    desc: "Translating high-fidelity designs into responsive, high-contrast, and clean component libraries.",
+    desc: "Turning high-fidelity designs into responsive, accessible, and maintainable component libraries.",
     icon: Layers,
   },
 ];
 
 const Services = () => {
   return (
-    <section id="services" className="py-24 container mx-auto px-6 bg-background text-foreground">
-      <div className="mb-16 border-l-4 border-emerald-500 pl-6">
-        <h3 className="text-2xl lg:text-4xl font-bold tracking-tighter">SERVICES</h3>
-      </div>
+    <section
+      id="services"
+      className="relative py-20 md:py-28 bg-background text-foreground overflow-hidden"
+    >
+      {/* Soft ambient */}
+      <div className="absolute top-1/3 right-1/4 w-[420px] h-[420px] bg-emerald-500/[0.05] rounded-full blur-[120px] pointer-events-none -z-10" />
 
-      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {services.map((service, i) => (
-          <motion.div
-            key={i}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className="group bg-card p-8 border border-border hover:border-emerald-500/50 transition-all duration-300"
-          >
-            <service.icon className="w-10 h-10 text-emerald-600 dark:text-emerald-500 mb-6 group-hover:scale-110 transition-transform" />
-            <h4 className="text-xl font-bold mb-4 tracking-tight">{service.title}</h4>
-            <p className="text-muted-foreground font-light leading-relaxed text-sm">
-              {service.desc}
-            </p>
-          </motion.div>
-        ))}
+      <div className="container mx-auto px-5 sm:px-6 max-w-6xl relative z-10">
+        {/* Header */}
+        <div className="mb-12 md:mb-16">
+          <div className="flex items-center gap-3 mb-3">
+            
+           
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight">
+            Services
+          </h2>
+        </div>
+
+        {/* Cards */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+          {services.map((service, i) => (
+            <motion.div
+              key={i}
+              initial={{ opacity: 0, y: 24 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-40px" }}
+              transition={{ duration: 0.45, delay: i * 0.08 }}
+              className="group relative rounded-2xl border border-border/70 bg-card/40 backdrop-blur-sm p-6 hover:border-emerald-500/35 hover:bg-card/60 transition-all duration-300 hover:-translate-y-1"
+            >
+              {/* Icon */}
+              <div className="mb-5 inline-flex items-center justify-center w-11 h-11 rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-500 group-hover:scale-105 transition-transform duration-300">
+                <service.icon className="w-5 h-5" />
+              </div>
+
+              <h3 className="text-base font-semibold tracking-tight mb-2.5 group-hover:text-emerald-500 transition-colors">
+                {service.title}
+              </h3>
+
+              <p className="text-[13px] text-muted-foreground leading-relaxed">
+                {service.desc}
+              </p>
+
+              {/* subtle number */}
+              <span className="absolute top-5 right-5 text-[11px] font-mono text-muted-foreground/40">
+                0{i + 1}
+              </span>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );

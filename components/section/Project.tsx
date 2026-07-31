@@ -1,188 +1,253 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
-import Image from "next/image";
+import React, { useState } from "react";
+import Image, { StaticImageData } from "next/image";
 import Link from "next/link";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { ArrowUpRight } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import { ArrowUpRight, ExternalLink } from "lucide-react";
 import { FaGithub } from "react-icons/fa";
-import Project1 from "@/public/Project1.png";
 
-gsap.registerPlugin(ScrollTrigger);
+// Default imports for image assets
+import Luga1 from "@/public/Luga1.png";
+import Luga2 from "@/public/luga2.png";
+import Luga3 from "@/public/Luga3.png";
+import Luga4 from "@/public/Luga4.png";
 
-const projects = [
+export interface ProjectType {
+  id: string;
+  number: string;
+  title: string;
+  category: string;
+  image: StaticImageData;
+  gallery: StaticImageData[];
+  story: string;
+  fullDescription: string;
+  features: string[];
+  tech: string[];
+  github: string;
+  demoUrl?: string;
+}
+
+export const projectsData: ProjectType[] = [
   {
-    title: "Luga Shop",
-    image: Project1,
+    id: "luga-shop",
+    number: "/01",
+    title: "LUGA SHOP",
+    category: "FRONTEND , BACKEND",
+    image: Luga1,
+    gallery: [Luga1, Luga2, Luga3, Luga4],
     story:
-      "A full e-commerce experience built to feel as fast as a native app, with a robust admin backend.",
-    tech: ["Next.js", "TypeScript", "MongoDB", "Stripe"],
+      "A modern e-commerce experience built around high speed and smooth interaction. Includes an admin backend, optimistic updates, and clean UI state control.",
+    fullDescription:
+      "Luga Shop resolves traditional performance issues by relying on optimistic UI updates, server-side dynamic cache revalidation, and streamlined Stripe transactions.",
+    features: [
+      "Optimistic shopping cart updates",
+      "Stripe payment gateway integration",
+      "Admin inventory management dashboard",
+      "Responsive image & assets optimization",
+    ],
+    tech: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Stripe"],
     github: "https://github.com/ankitsharma9823/luga-shop",
-    category: "E-Commerce",
+    demoUrl: "https://luga-shop.demo.app",
   },
   {
-    title: "Attendance System",
-    image: Project1,
+    id: "attendance-system",
+    number: "/02",
+    title: "ATTENDANCE SYSTEM",
+    category: "FULL-STACK",
+    image: Luga2,
+    gallery: [Luga2, Luga1, Luga3],
     story:
-      "Relational system that replaces manual tracking with automated reports and clean data flows.",
+      "Automated system replacing manual tracking with relational database flows, automated weekly reports, and role-based permissions.",
+    fullDescription:
+      "Designed to digitize legacy attendance logs. Offers automated reporting routines, Prisma integration, and role-based security.",
+    features: [
+      "Role-based authorization (Admin, Employee)",
+      "Automated PDF & CSV exports",
+      "Relational Prisma schema design",
+      "Analytical user dashboard",
+    ],
     tech: ["React", "Node.js", "PostgreSQL", "Prisma"],
     github: "https://github.com/ankitsharma9823/Attendance_System",
-    category: "Full-Stack",
   },
   {
-    title: "Invoicing App",
-    image: Project1,
+    id: "invoicing-app",
+    number: "/03",
+    title: "INVOICING APP",
+    category: "FRONTEND , UTILITY",
+    image: Luga3,
+    gallery: [Luga3, Luga4, Luga1],
     story:
-      "Fast PDF generation and client tracking tool built for freelancers who need professional documents.",
-    tech: ["Next.js", "TypeScript", "PDFKit"],
+      "Fast PDF generation and client document tool built for freelancers needing lightweight, immediate invoice compilation.",
+    fullDescription:
+      "Created to avoid subscription-based invoicing tools by streaming PDFs client-side with clean print formatting.",
+    features: [
+      "Client-side instant PDF compilation",
+      "LocalStorage template persistence",
+      "Tax & currency calculation module",
+      "Printable document layout formatting",
+    ],
+    tech: ["Next.js", "TypeScript", "PDFKit", "Tailwind CSS"],
     github: "https://github.com/ankitsharma9823/Invoicing-App",
-    category: "Developer Tool",
   },
 ];
 
 const Projects = () => {
-  const sectionRef = useRef<HTMLElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([]);
+  const router = useRouter();
+  const [selectedId, setSelectedId] = useState<string>(projectsData[0].id);
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headerRef.current,
-        { opacity: 0, y: 24 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.65,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 75%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-
-      cardsRef.current.forEach((card, i) => {
-        if (!card) return;
-        gsap.fromTo(
-          card,
-          { opacity: 0, y: 40, scale: 0.97 },
-          {
-            opacity: 1,
-            y: 0,
-            scale: 1,
-            duration: 0.7,
-            delay: i * 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: card,
-              start: "top 88%",
-              toggleActions: "play none none reverse",
-            },
-          }
-        );
-      });
-    }, sectionRef);
-
-    return () => ctx.revert();
-  }, []);
+  const currentProject =
+    projectsData.find((p) => p.id === selectedId) || projectsData[0];
 
   return (
-    <section
-      ref={sectionRef}
-      id="projects"
-      className="relative py-10 md:py-15 bg-background text-foreground overflow-hidden"
-    >
-      {/* Ambient */}
-      <div className="absolute top-1/4 left-1/4 w-[480px] h-[480px] bg-emerald-500/[0.05] rounded-full blur-[130px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-[360px] h-[360px] bg-cyan-500/[0.04] rounded-full blur-[110px] pointer-events-none -z-10" />
-
-      <div className="container mx-auto px-5 sm:px-6 max-w-6xl relative z-10">
-        {/* Header - tighter typography */}
-        <div ref={headerRef} className="mb-12 md:mb-16 max-w-xl opacity-0">
-          
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight leading-snug mb-3">
-            Projects that solve real problems
+    <section id="projects" className="py-12 md:py-20 bg-[#f8f9fa] dark:bg-zinc-950 text-foreground">
+      <div className="container mx-auto px-4 max-w-6xl">
+        
+        {/* Centered Top Heading */}
+        <div className="flex flex-col items-center justify-center text-center mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wider uppercase text-foreground">
+            Projects
           </h2>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            Built with performance, clarity and systems thinking in mind.
-          </p>
+          <div className="w-10 h-0.5 bg-emerald-500 mt-2 rounded-full" />
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6 md:gap-7">
-          {projects.map((project, index) => (
-            <div
-              key={index}
-              ref={(el) => {
-                cardsRef.current[index] = el;
-              }}
-              className="opacity-0 group"
-            >
-              <article className="h-full flex flex-col rounded-2xl bg-card/50 backdrop-blur-xl border border-border/70 overflow-hidden transition-all duration-400 hover:border-emerald-500/35 hover:shadow-lg hover:shadow-emerald-500/[0.04] hover:-translate-y-1">
-                {/* Image */}
-                <div className="relative h-44 sm:h-48 w-full overflow-hidden bg-muted">
+        {/* Centered Grid Layout */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+          
+          {/* Left Column: Interactive List */}
+          <div className="lg:col-span-5 space-y-1">
+            {projectsData.map((project) => {
+              const isSelected = project.id === selectedId;
+
+              return (
+                <div
+                  key={project.id}
+                  onMouseEnter={() => setSelectedId(project.id)}
+                  onClick={() => router.push(`/projects/${project.id}`)}
+                  className="group cursor-pointer border-b border-border/50 py-3.5 transition-colors duration-200"
+                >
+                  <motion.div
+                    whileHover={{ x: 8 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className="flex items-center justify-between pr-2"
+                  >
+                    <div className="flex items-center gap-3">
+                      <span className="font-mono text-[11px] text-muted-foreground/60 font-semibold">
+                        {project.number}
+                      </span>
+                      <h3
+                        className={`text-base sm:text-lg font-extrabold tracking-tight transition-colors duration-200 ${
+                          isSelected
+                            ? "text-foreground"
+                            : "text-muted-foreground/50 group-hover:text-foreground"
+                        }`}
+                      >
+                        {project.title}
+                      </h3>
+                    </div>
+
+                    <ArrowUpRight
+                      className={`w-4 h-4 transition-all duration-300 ${
+                        isSelected
+                          ? "text-foreground opacity-100"
+                          : "text-muted-foreground/30 opacity-0 group-hover:opacity-100"
+                      }`}
+                    />
+                  </motion.div>
+                </div>
+              );
+            })}
+          </div>
+
+          {/* Right Column: Dynamic Preview Card */}
+          <div className="lg:col-span-7">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={currentProject.id}
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -12 }}
+                transition={{ duration: 0.2, ease: "easeInOut" }}
+                className="rounded-2xl bg-card border border-border/70 shadow-xl overflow-hidden p-4 space-y-4"
+              >
+                {/* Image Frame */}
+                <div 
+                  onClick={() => router.push(`/projects/${currentProject.id}`)}
+                  className="relative h-52 sm:h-64 w-full rounded-xl overflow-hidden bg-muted cursor-pointer group"
+                >
                   <Image
-                    src={project.image}
-                    alt={project.title}
+                    src={currentProject.image}
+                    alt={currentProject.title}
                     fill
-                    className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.04]"
+                    priority
+                    className="object-cover transition-transform duration-500 group-hover:scale-105"
                   />
-                  {/* subtle bottom gradient */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-background/40 via-transparent to-transparent" />
-                  
-                  <div className="absolute top-3 left-3">
-                    <span className="text-[10px] font-mono px-2 py-0.5 rounded-md bg-background/75 backdrop-blur-md border border-border/60 text-foreground/90">
-                      {project.category}
+                  <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                    <span className="text-white text-[11px] font-mono font-medium bg-black/60 px-3 py-1 rounded-full backdrop-blur-sm border border-white/20">
+                      View Project Details →
                     </span>
                   </div>
-                  <span className="absolute top-3 right-3 text-[10px] font-mono text-white/60 bg-black/25 backdrop-blur-sm px-1.5 py-0.5 rounded">
-                    0{index + 1}
-                  </span>
                 </div>
 
-                {/* Content */}
-                <div className="flex flex-col flex-1 p-4 sm:p-5 space-y-3.5">
-                  <div className="space-y-1.5">
-                    <h3 className="text-base sm:text-lg font-semibold tracking-tight group-hover:text-emerald-500 transition-colors">
-                      {project.title}
+                {/* Card Info */}
+                <div className="space-y-3 px-1">
+                  <div>
+                    <h3 className="text-lg sm:text-xl font-bold tracking-tight uppercase">
+                      {currentProject.title}
                     </h3>
-                    <p className="text-[13px] text-muted-foreground leading-relaxed line-clamp-2">
-                      {project.story}
+                    <p className="text-[10px] font-mono tracking-wider text-muted-foreground/80 uppercase mt-0.5">
+                      {currentProject.category}
                     </p>
                   </div>
 
-                  {/* Tech pills */}
-                  <div className="flex flex-wrap gap-1.5">
-                    {project.tech.map((t) => (
-                      <span
-                        key={t}
-                        className="text-[10px] font-mono px-2 py-0.5 rounded bg-muted/70 border border-border/50 text-foreground/75"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="text-xs text-muted-foreground leading-relaxed">
+                    {currentProject.story}
+                  </p>
 
-                  {/* Link */}
-                  <div className="pt-1 mt-auto">
+                  {/* Actions */}
+                  <div className="space-y-2 pt-1">
                     <Link
-                      href={project.github}
-                      target="_blank"
-                      className="inline-flex items-center gap-1.5 text-[13px] font-medium text-foreground/70 hover:text-emerald-500 transition-colors group/link"
+                      href={`/projects/${currentProject.id}`}
+                      className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold py-2.5 text-[11px] tracking-wider uppercase hover:opacity-90 transition-opacity"
                     >
-                      <FaGithub className="w-3.5 h-3.5" />
-                      <span>Source</span>
-                      <ArrowUpRight className="w-3 h-3 opacity-0 -translate-x-0.5 group-hover/link:opacity-100 group-hover/link:translate-x-0 transition-all duration-300" />
+                      <span>View Details</span>
+                      <ArrowUpRight className="w-3.5 h-3.5" />
                     </Link>
+
+                    <div className="grid grid-cols-2 gap-2">
+                      {currentProject.demoUrl && (
+                        <Link
+                          href={currentProject.demoUrl}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-background hover:bg-muted font-semibold py-2 text-[10px] tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          <ExternalLink className="w-3 h-3" />
+                          <span>Live Demo</span>
+                        </Link>
+                      )}
+
+                      <Link
+                        href={currentProject.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-background hover:bg-muted font-semibold py-2 text-[10px] tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors ${
+                          !currentProject.demoUrl ? "col-span-2" : ""
+                        }`}
+                      >
+                        <FaGithub className="w-3 h-3" />
+                        <span>GitHub</span>
+                      </Link>
+                    </div>
                   </div>
                 </div>
-              </article>
-            </div>
-          ))}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+
         </div>
+
       </div>
     </section>
   );

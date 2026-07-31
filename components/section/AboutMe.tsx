@@ -1,133 +1,254 @@
 "use client";
 
-import React, { useRef, useEffect } from "react";
+import React from "react";
 import Image from "next/image";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Link from "next/link";
+import { motion, Variants } from "framer-motion";
+import {
+  MapPin,
+  Download,
+  Code2,
+  FolderGit2,
+  Calendar,
+  Layers,
+  ArrowUpRight,
+  Terminal,
+  Cpu,
+  Sparkles,
+} from "lucide-react";
 import profile from "@/public/Profile.png";
 
-gsap.registerPlugin(ScrollTrigger);
-
 const AboutMe = () => {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const imageRef = useRef<HTMLDivElement>(null);
-  const contentRef = useRef<HTMLDivElement>(null);
-  const headerRef = useRef<HTMLDivElement>(null);
+  // Animation Variants with explicit TypeScript typing (Fixes TS Error)
+  const headerVariants: Variants = {
+    hidden: { opacity: 0, y: -30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  };
 
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top 75%",
-          toggleActions: "play none none reverse",
-        },
-        defaults: { ease: "power3.out" },
-      });
+  const leftContentVariants: Variants = {
+    hidden: { opacity: 0, x: -40 },
+    visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: "easeOut" } },
+  };
 
-      tl.fromTo(
-        headerRef.current,
-        { opacity: 0, y: -16 },
-        { opacity: 1, y: 0, duration: 0.55 }
-      )
-        .fromTo(
-          imageRef.current,
-          { opacity: 0, x: -24, scale: 0.96 },
-          { opacity: 1, x: 0, scale: 1, duration: 0.75 },
-          "-=0.25"
-        )
-        .fromTo(
-          gsap.utils.toArray(contentRef.current?.children || []),
-          { opacity: 0, y: 22 },
-          { opacity: 1, y: 0, duration: 0.65, stagger: 0.1 },
-          "-=0.45"
-        );
-    }, containerRef);
+  const rightImageVariants: Variants = {
+    hidden: { opacity: 0, x: 40, scale: 0.95 },
+    visible: { opacity: 1, x: 0, scale: 1, transition: { duration: 0.5, ease: "easeOut" } },
+  };
 
-    return () => ctx.revert();
-  }, []);
+  // Snappier stats container trigger
+  const statsContainerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.08, // Reduced stagger delay so cards pop up faster
+        delayChildren: 0.05,   // Removed heavy start delay
+      },
+    },
+  };
 
-  const facts = [
-    { label: "Role", value: "BIT Undergraduate & Full-Stack Developer" },
-    { label: "Location", value: "Based in Nepal, working globally" },
-    { label: "Focus", value: "Low-level systems, backend design & tools" },
-    { label: "Current", value: "Available for freelance projects & roles" },
+  const statItemVariants: Variants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: "easeOut" } },
+  };
+
+  const stats = [
+    { icon: FolderGit2, value: "12+", label: "Total Projects", sub: "Web apps & tools built" },
+    { icon: Layers, value: "10+", label: "Tech Stack", sub: "Modern frameworks & tools" },
+    { icon: Calendar, value: "2+", label: "Years Learning", sub: "Hands-on experience" },
+  ];
+
+  const highlights = [
+    {
+      icon: Terminal,
+      title: "Full-Stack Development",
+      description:
+        "Building production-grade web applications using React, Next.js, and Node.js with a focus on UI/UX and high availability.",
+    },
+    {
+      icon: Cpu,
+      title: "Backend & Systems Focus",
+      description:
+        "Passionate about clean architecture, optimized database schemas, efficient REST APIs, and system performance.",
+    },
+    {
+      icon: Sparkles,
+      title: "Problem Solver & Scholar",
+      description:
+        "Undergraduate BIT student based in Nepal, dedicated to understanding low-level mechanics and writing clean code.",
+    },
   ];
 
   return (
     <section
-      ref={containerRef}
       id="about"
-      className="relative py-10 md:py-32 container mx-auto px-6 bg-background text-foreground overflow-hidden"
+      className="relative py-20 md:py-32 container mx-auto px-6 bg-background text-foreground overflow-hidden"
     >
-      {/* Ambient lights */}
+      {/* Ambient background glows */}
       <div className="absolute top-1/3 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[420px] h-[420px] bg-gradient-to-tr from-emerald-500/10 via-teal-500/8 to-transparent rounded-full blur-[120px] pointer-events-none -z-10" />
       <div className="absolute bottom-10 right-1/4 w-[320px] h-[320px] bg-gradient-to-bl from-cyan-500/10 via-emerald-500/8 to-transparent rounded-full blur-[100px] pointer-events-none -z-10" />
 
-      <div className="max-w-6xl w-full mx-auto space-y-14 relative z-10">
-        {/* Header */}
-        <div
-          ref={headerRef}
-          className="flex items-center justify-between border-b border-border/50 pb-4"
+      <div className="max-w-6xl w-full mx-auto space-y-16 relative z-10">
+        
+        {/* Header — Enters from Top */}
+        <motion.div
+          variants={headerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.2 }}
+          className="text-center space-y-3 max-w-2xl mx-auto"
         >
-          <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground uppercase tracking-widest">
-            <span>About Me</span>
-          </div>
-          <span className="text-xs font-mono text-emerald-500 font-medium tracking-wide">
-            Ankit Sharma
-          </span>
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight">
+            About <span className="text-emerald-500">Me</span>
+          </h2>
+          <p className="text-sm sm:text-base text-muted-foreground">
+            Full-stack & systems developer focused on modern web platforms,
+            clean architecture, and reliable systems.
+          </p>
+        </motion.div>
+
+        {/* Main Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-14 md:gap-10 items-center">
+          
+          {/* Left Column — Enters from Left */}
+          <motion.div
+            variants={leftContentVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="md:col-span-7 space-y-6 order-2 md:order-1"
+          >
+            <div className="space-y-1.5">
+              <p className="text-lg text-emerald-500 font-semibold">Hello, I&apos;m</p>
+              <h3 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
+                Ankit Sharma
+              </h3>
+            </div>
+
+            {/* Badge pills */}
+            <div className="flex flex-wrap items-center gap-2.5">
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-border/60 bg-white/5 dark:bg-white/[0.03] text-muted-foreground">
+                <MapPin className="w-3.5 h-3.5 text-emerald-500" />
+                Based in Nepal
+              </span>
+              <span className="inline-flex items-center gap-1.5 text-xs font-mono px-3 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-500">
+                <span className="relative flex h-1.5 w-1.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500" />
+                </span>
+                Open to Opportunities
+              </span>
+            </div>
+
+            {/* Structured Bullet Points */}
+            <div className="space-y-3 pt-2">
+              {highlights.map((item, idx) => {
+                const Icon = item.icon;
+                return (
+                  <div
+                    key={idx}
+                    className="flex items-start gap-3.5 p-3.5 rounded-xl border border-border/40 bg-muted/30 hover:bg-muted/60 transition-colors"
+                  >
+                    <div className="p-2 rounded-lg bg-emerald-500/10 text-emerald-500 shrink-0 mt-0.5">
+                      <Icon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <h4 className="text-sm font-semibold text-foreground">
+                        {item.title}
+                      </h4>
+                      <p className="text-xs sm:text-sm text-muted-foreground leading-relaxed mt-0.5">
+                        {item.description}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+
+            {/* CTA Buttons */}
+            <div className="flex flex-wrap items-center gap-3 pt-2">
+              <a
+                href="/Ankit_Resume.pdf"
+                download="Ankit-Resume.pdf"
+                className="inline-flex items-center gap-2 rounded-xl bg-foreground text-background hover:bg-foreground/90 font-medium px-5 py-2.5 text-sm transition-colors"
+              >
+                <Download className="w-4 h-4" />
+                Download CV
+              </a>
+              <Link
+                href="#projects"
+                className="inline-flex items-center gap-2 rounded-xl border border-border/80 bg-background/80 backdrop-blur-sm hover:bg-muted font-medium px-5 py-2.5 text-sm transition-colors"
+              >
+                <Code2 className="w-4 h-4 text-emerald-500" />
+                View Projects
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Right Column — Enters from Right */}
+          <motion.div
+            variants={rightImageVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.2 }}
+            className="md:col-span-5 flex justify-center order-1 md:order-2"
+          >
+            <div className="relative w-[280px] h-[280px] sm:w-[340px] sm:h-[340px]">
+              <div className="absolute -inset-6 rounded-full bg-gradient-to-tr from-emerald-500/25 via-teal-500/15 to-transparent blur-2xl pointer-events-none" />
+              <div className="absolute -inset-2 rounded-full border border-emerald-500/20 pointer-events-none" />
+
+              <div className="relative w-full h-full rounded-full overflow-hidden border-2 border-emerald-500/30 shadow-2xl">
+                <Image
+                  src={profile}
+                  alt="Ankit Sharma"
+                  fill
+                  priority
+                  className="object-cover object-center"
+                />
+              </div>
+            </div>
+          </motion.div>
         </div>
 
-        {/* Main grid */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 md:gap-10 items-center">
-          {/* Simple Image */}
-          <div className="md:col-span-5 flex justify-center md:justify-start">
-            <div
-              ref={imageRef}
-              style={{ opacity: 0 }}
-              className="relative w-full max-w-90 h-110 rounded-2xl overflow-hidden"
-            >
-              <Image
-                src={profile}
-                alt="Ankit Sharma"
-                fill
-                priority
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
-
-          {/* Content */}
-          <div ref={contentRef} className="md:col-span-7 space-y-6">
-            <div className="space-y-3">
-              <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight leading-tight">
-                Behind the code.
-              </h2>
-              <p className="text-sm sm:text-base text-muted-foreground leading-relaxed max-w-lg">
-                I am deeply enthusiastic about software development, clean
-                architecture, performance, and understanding how underlying
-                systems operate.
-              </p>
-            </div>
-
-            {/* Fact sheet */}
-            <div className="space-y-2.5 font-mono text-xs sm:text-sm">
-              {facts.map((fact, index) => (
-                <div
-                  key={index}
-                  className="flex flex-col sm:flex-row sm:items-center justify-between gap-1.5 sm:gap-4 p-3.5 rounded-xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-md border border-white/10 dark:border-white/8 hover:border-emerald-500/30 hover:bg-white/10 dark:hover:bg-white/[0.06] transition-all duration-300"
-                >
-                  <span className="text-muted-foreground font-medium tracking-wide">
-                    {fact.label}
-                  </span>
-                  <span className="text-foreground font-semibold text-left sm:text-right">
-                    {fact.value}
-                  </span>
+        {/* Stats Row — Triggers as soon as 5% comes into view (amount: 0.05) */}
+        <motion.div
+          variants={statsContainerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.05 }}
+          className="grid grid-cols-1 sm:grid-cols-3 gap-4"
+        >
+          {stats.map((stat, index) => {
+            const Icon = stat.icon;
+            return (
+              <motion.div
+                key={index}
+                variants={statItemVariants}
+                className="group relative flex items-center justify-between p-5 rounded-2xl bg-white/5 dark:bg-white/[0.03] backdrop-blur-md border border-white/10 dark:border-white/8 hover:border-emerald-500/40 hover:bg-white/10 dark:hover:bg-white/[0.06] transition-all duration-300"
+              >
+                <div className="flex items-center gap-4">
+                  <div className="w-11 h-11 rounded-full bg-emerald-500/10 flex items-center justify-center group-hover:bg-emerald-500/20 transition-colors">
+                    <Icon className="w-5 h-5 text-emerald-500" />
+                  </div>
+                  <div>
+                    <p className="text-xs font-mono uppercase tracking-widest text-muted-foreground">
+                      {stat.label}
+                    </p>
+                    <p className="text-xs text-muted-foreground/70 mt-0.5">
+                      {stat.sub}
+                    </p>
+                  </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-3xl font-extrabold text-foreground">
+                    {stat.value}
+                  </span>
+                  <ArrowUpRight className="w-4 h-4 text-muted-foreground/50 group-hover:text-emerald-500 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-all" />
+                </div>
+              </motion.div>
+            );
+          })}
+        </motion.div>
       </div>
     </section>
   );

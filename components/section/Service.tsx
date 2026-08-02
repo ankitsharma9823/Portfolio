@@ -110,7 +110,7 @@ const Services = () => {
             className="lg:col-span-6 space-y-8"
           >
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1]">
-              <span className="text-muted-foreground/60 font-medium">
+              <span className="text-emerald-500 font-medium">
                 Services that
               </span>{" "}
               bring your ideas to life.

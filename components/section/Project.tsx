@@ -13,6 +13,12 @@ import Luga1 from "@/public/Luga1.png";
 import Luga2 from "@/public/luga2.png";
 import Luga3 from "@/public/Luga3.png";
 import Luga4 from "@/public/Luga4.png";
+import Attendance1 from "@/public/Attendance1.png";
+import Attendance2 from "@/public/Attendance2.png";
+import Attendance3 from "@/public/Attendance3.png";
+import Invoice1 from "@/public/Invoice1.png";
+import Invoice2 from "@/public/Invoice2.png";
+import Invoice3 from "@/public/Invoice3.png";
 
 export interface ProjectType {
   id: string;
@@ -38,16 +44,18 @@ export const projectsData: ProjectType[] = [
     image: Luga1,
     gallery: [Luga1, Luga2, Luga3, Luga4],
     story:
-      "A modern e-commerce experience built around high speed and smooth interaction. Includes an admin backend, optimistic updates, and clean UI state control.",
+      "A professional full-stack e-commerce application built for modern retail experiences, combining catalog browsing, cart management, order processing, and administrative control.",
     fullDescription:
-      "Luga Shop resolves traditional performance issues by relying on optimistic UI updates, server-side dynamic cache revalidation, and streamlined Stripe transactions.",
+      "Luga Shop is a complete two-tier shopping platform featuring public product browsing with category navigation, secure user authentication, wishlist functionality, order cancellation and refund handling, review moderation, and a robust admin dashboard for products, categories, users, and orders.",
     features: [
-      "Optimistic shopping cart updates",
-      "Stripe payment gateway integration",
-      "Admin inventory management dashboard",
-      "Responsive image & assets optimization",
+      "Public product browsing & category-based navigation",
+      "Cart and wishlist state management",
+      "Order processing, cancellation, and refund workflows",
+      "Customer review submission and admin moderation",
+      "Comprehensive admin dashboard for inventory and user control",
+      "Newsletter subscription and contact support messaging",
     ],
-    tech: ["Next.js", "TypeScript", "Tailwind CSS", "MongoDB", "Stripe"],
+    tech: ["React", "Vite", "Node.js", "Express", "MongoDB", "Tailwind CSS", "JWT"],
     github: "https://github.com/ankitsharma9823/luga-shop",
     demoUrl: "https://luga-shop.demo.app",
   },
@@ -56,39 +64,42 @@ export const projectsData: ProjectType[] = [
     number: "/02",
     title: "ATTENDANCE SYSTEM",
     category: "FULL-STACK",
-    image: Luga2,
-    gallery: [Luga2, Luga1, Luga3],
+    image: Attendance1,
+    gallery: [Attendance1, Attendance2, Attendance3],
     story:
-      "Automated system replacing manual tracking with relational database flows, automated weekly reports, and role-based permissions.",
+      "A modern, full-stack attendance and workforce management platform combining a responsive web dashboard with backend services for biometric device synchronization, leave workflows, and analytics.",
     fullDescription:
-      "Designed to digitize legacy attendance logs. Offers automated reporting routines, Prisma integration, and role-based security.",
+      "Designed to centralize employee attendance using ZKTeco-compatible biometric machines. Features automated attendance sync, structured ledgers for daily logs, robust leave and holiday request workflows, real-time Socket.IO updates, and executive-style analytics visualization.",
     features: [
-      "Role-based authorization (Admin, Employee)",
-      "Automated PDF & CSV exports",
-      "Relational Prisma schema design",
-      "Analytical user dashboard",
+      "Biometric device integration via node-zklib with attendance sync",
+      "Daily status overrides (Present, Late, Absent, Half Day, Leave)",
+      "Executive analytics dashboard with Recharts visualization",
+      "Leave and holiday request tracking workflows",
+      "Role-based user and device administration",
+      "Secure authentication with email verification and JWT rate-limiting",
     ],
-    tech: ["React", "Node.js", "PostgreSQL", "Prisma"],
+    tech: ["Next.js", "React", "Node.js", "Express", "TypeScript", "Prisma", "PostgreSQL", "Socket.IO"],
     github: "https://github.com/ankitsharma9823/Attendance_System",
   },
   {
     id: "invoicing-app",
     number: "/03",
     title: "INVOICING APP",
-    category: "FRONTEND , UTILITY",
-    image: Luga3,
-    gallery: [Luga3, Luga4, Luga1],
+    category: "FULL-STACK , UTILITY",
+    image: Invoice1,
+    gallery: [Invoice1, Invoice2, Invoice3],
     story:
-      "Fast PDF generation and client document tool built for freelancers needing lightweight, immediate invoice compilation.",
+      "Professional, lightweight invoicing application for creating, managing, and sending invoices, clients, and products with secure authentication and automated email delivery.",
     fullDescription:
-      "Created to avoid subscription-based invoicing tools by streaming PDFs client-side with clean print formatting.",
+      "A robust invoicing and document tool built for freelancers and businesses needing streamlined invoice compilation. Features MongoDB persistence, JWT authentication, Cloudinary media asset hosting for company logos, and SMTP-compatible email dispatch for direct client notifications.",
     features: [
-      "Client-side instant PDF compilation",
-      "LocalStorage template persistence",
-      "Tax & currency calculation module",
-      "Printable document layout formatting",
+      "Create and manage invoices, clients, and services/products",
+      "PDF invoice generation ready for download and email distribution",
+      "Cloudinary asset hosting for company logos and media uploads",
+      "Secure JWT authentication and environment-based configuration",
+      "SMTP email integration for direct invoice notifications",
     ],
-    tech: ["Next.js", "TypeScript", "PDFKit", "Tailwind CSS"],
+    tech: ["Node.js", "Express", "MongoDB", "JWT", "Cloudinary", "Nodemailer"],
     github: "https://github.com/ankitsharma9823/Invoicing-App",
   },
 ];

@@ -16,20 +16,10 @@ const NAV_ITEMS = [
 
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("#about");
-  const [isDesktop, setIsDesktop] = useState(false);
   const [hidden, setHidden] = useState(false);
-
   const lastScrollY = useRef(0);
 
-  // Track breakpoint
-  useEffect(() => {
-    const check = () => setIsDesktop(window.innerWidth >= 1024);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  // Scroll hide / show (mobile + desktop) + scale
+  // Scroll hide / show
   useEffect(() => {
     const handleScroll = () => {
       const currentScrollY = window.scrollY;
@@ -48,6 +38,35 @@ const Navbar = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Intersection Observer to dynamically update active section based on scroll position
+  useEffect(() => {
+    const handleIntersect: IntersectionObserverCallback = (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(`#${entry.target.id}`);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, {
+      root: null,
+      // Trigger when the section is roughly centered in the viewport
+      rootMargin: "-40% 0px -40% 0px",
+      threshold: 0,
+    });
+
+    NAV_ITEMS.forEach((item) => {
+      const element = document.querySelector(item.href);
+      if (element) {
+        observer.observe(element);
+      }
+    });
+
+    return () => {
+      observer.disconnect();
+    };
+  }, []);
+
   return (
     <div className="fixed bottom-4 left-0 right-0 h-24 lg:h-32 z-50 flex items-end justify-center pointer-events-none">
       <motion.aside
@@ -63,6 +82,7 @@ const Navbar = () => {
         {/* Home / Logo */}
         <Link
           href="/"
+          onClick={() => setActiveSection("")}
           className="group relative flex items-center justify-center w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-foreground text-background font-bold text-xs tracking-tight shadow-md transition-all duration-200 hover:scale-105 active:scale-95"
         >
           AS

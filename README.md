@@ -1,36 +1,64 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio Website
 
-## Getting Started
+This repository contains a modern personal portfolio website built for showcasing professional skills, projects, experience, services, and contact details.
 
-First, run the development server:
+## Overview
+
+The site presents a branded landing experience with animated hero sections, an about section, project previews, experience highlights, services, and a contact form. It is designed to emphasize polished visual presentation, fast performance, and interactive UI behaviors.
+
+## What It Showcases
+
+- Personal introduction with animated hero experience
+- Professional summary and about section
+- Featured projects with interactive previews and detailed project pages
+- Experience and service offerings
+- Contact section with direct messaging and social links
+
+## Key Features
+
+- Animated loading intro and hero interactions
+- Responsive layout optimized for desktop and mobile
+- Section-based portfolio structure (Hero, About, Projects, Experience, Services, Contact)
+- Project carousel and category browsing interface
+- Contact form handling via Next.js action
+- Downloadable resume support
+- Dark/light theme support through theme provider
+
+## Technology Stack
+
+- Next.js 16 (App Router)
+- React 19
+- Tailwind CSS 4
+- TypeScript
+- Framer Motion
+- GSAP
+- Radix UI and shadcn/ui components
+- Lucide icons, React Icons, and Phosphor icons
+- Lottie animations
+
+## Project Structure
+
+- `app/page.tsx` - main landing page and section composition
+- `app/layout.tsx` - application shell and metadata
+- `app/actions/sendEmail.ts` - contact form action handler
+- `app/projects/[id]/page.tsx` - individual project detail pages
+- `components/section/` - portfolio sections for Hero, About, Projects, Experience, Services, Contact
+- `components/ui/` - shared UI primitives, buttons, cards, dropdowns, navigation
+- `public/` - static assets such as images, resume PDF, and media
+
+## Running Locally
+
+Install dependencies and start the Next.js development server:
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Then open `http://localhost:3000` in your browser.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Notes
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The portfolio is intended as a visual and functional presentation of a developer profile.
+- Project detail pages are generated for each featured project in the `app/projects/[id]` route.
+- The repository is focused on the front-end portfolio experience and includes real project showcase data.

@@ -19,29 +19,29 @@ import {
 const experienceData = [
   {
     id: "aarambha",
-    role: "Frontend Engineer",
-    company: "Aarambha",
-    period: "2025 - Present",
+    role: "Frontend Developer",
+    company: "Aarambha IT Research Center Pvt. Ltd.",
+    period: "Sep 2025 - Present",
     type: "Work Experience",
     status: "Currently Working Here",
-    desc: "Building real-world web apps with a focus on fast load times, clean UI design, and seamless dynamic user experiences across devices.",
-    skills: ["React", "Next.js", "TypeScript", "TailwindCSS", "Node.js"],
+    desc: "Building responsive React and Next.js interfaces, integrating REST APIs, managing state with React Hooks, and handling JWT authentication flows with reusable, cross-browser UI components.",
+    skills: ["React.js", "Next.js", "TypeScript", "Tailwind CSS", "REST APIs", "JWT"],
     icon: Building2,
   },
   {
-    id: "bit-student",
-    role: "BIT Undergraduate",
-    company: "University Student",
+    id: "bsc-computing",
+    role: "BSc (Hons) Computing",
+    company: "Informatics College Pokhara (London Metropolitan University)",
     period: "2024 - Present",
     type: "Education",
-    status: "In Progress",
-    desc: "Studying core computer science topics including system design, database architecture, backend logic, and clean software development practices.",
-    skills: ["System Design", "SQL Databases", "Data Structures", "Software Architecture"],
+    status: "3rd Year",
+    desc: "Studying computing with a focus on web development, databases, and clean software development practices, while building real projects alongside my degree.",
+    skills: ["Web Development", "Databases", "Software Development"],
     icon: GraduationCap,
   },
 ];
 
-// Clean, readable skill categories
+// Skill categories (matched to CV)
 const skillDecks = [
   {
     id: "frontend",
@@ -50,9 +50,11 @@ const skillDecks = [
     badge: "What I use for Interfaces",
     skills: [
       { name: "Next.js", icon: "⚡", tag: "Fast page loads & server rendering", level: "Advanced" },
-      { name: "React", icon: "⚛️", tag: "Interactive UI & reusable components", level: "Advanced" },
-      { name: "TypeScript", icon: "📘", tag: "Catching bugs before code runs", level: "Advanced" },
+      { name: "React.js", icon: "⚛️", tag: "Interactive UI & reusable components", level: "Advanced" },
       { name: "Tailwind CSS", icon: "🎨", tag: "Custom responsive styling", level: "Expert" },
+      { name: "shadcn/ui", icon: "🧩", tag: "Accessible, reusable UI components", level: "Intermediate" },
+      { name: "Recharts", icon: "📈", tag: "Charts for analytics dashboards", level: "Intermediate" },
+      { name: "Vite", icon: "🔥", tag: "Fast React project tooling", level: "Intermediate" },
     ],
   },
   {
@@ -62,22 +64,23 @@ const skillDecks = [
     badge: "What I use behind the scenes",
     skills: [
       { name: "Node.js", icon: "🟢", tag: "Running JavaScript on servers", level: "Intermediate" },
-      { name: "Express", icon: "🚂", tag: "Building backend API routes", level: "Intermediate" },
+      { name: "Express.js", icon: "🚂", tag: "Building backend API routes", level: "Intermediate" },
+      { name: "REST APIs & JWT", icon: "🔐", tag: "Secure authentication & data flow", level: "Intermediate" },
+      { name: "MongoDB", icon: "🍃", tag: "Flexible document-based databases", level: "Intermediate" },
       { name: "PostgreSQL", icon: "🐘", tag: "Structured relational databases", level: "Intermediate" },
       { name: "Prisma ORM", icon: "💎", tag: "Safely connecting code to databases", level: "Intermediate" },
-      { name: "MongoDB", icon: "🍃", tag: "Flexible document-based databases", level: "Intermediate" },
     ],
   },
   {
     id: "languages",
-    category: "Programming & Foundations",
+    category: "Languages & Foundations",
     icon: Code2,
-    badge: "Core Engineering Concepts",
+    badge: "Core Web Concepts",
     skills: [
       { name: "JavaScript (ES6+)", icon: "🟨", tag: "Core web language & modern syntax", level: "Advanced" },
-      { name: "TypeScript", icon: "🔷", tag: "Type-safe code structure", level: "Advanced" },
-      { name: "SQL", icon: "📊", tag: "Database queries & joins", level: "Intermediate" },
-      { name: "Object-Oriented Design", icon: "📐", tag: "Clean, reusable code patterns", level: "Intermediate" },
+      { name: "TypeScript", icon: "🔷", tag: "Type-safe code, catching bugs early", level: "Advanced" },
+      { name: "HTML5 & CSS3", icon: "🌐", tag: "Semantic markup & modern styling", level: "Advanced" },
+      { name: "Responsive Design", icon: "📱", tag: "Cross-browser, performance-focused UI", level: "Advanced" },
     ],
   },
   {
@@ -87,8 +90,9 @@ const skillDecks = [
     badge: "Daily Productivity Stack",
     skills: [
       { name: "Git & GitHub", icon: "🐙", tag: "Version control & collaboration", level: "Advanced" },
-      { name: "System Architecture", icon: "⚙️", tag: "Designing how software flows", level: "Intermediate" },
-      { name: "Vercel & Postman", icon: "🚀", tag: "Hosting websites & testing APIs", level: "Intermediate" },
+      { name: "Vercel", icon: "🚀", tag: "Deploying and hosting websites", level: "Intermediate" },
+      { name: "Cloudinary", icon: "☁️", tag: "Image & media uploads", level: "Intermediate" },
+      { name: "Nodemailer", icon: "📧", tag: "Sending emails from the backend", level: "Intermediate" },
     ],
   },
 ];
@@ -316,6 +320,7 @@ const Experience = () => {
                   <button
                     key={i}
                     onClick={() => setActiveDeckIndex(i)}
+                    aria-label={`Go to category ${i + 1}`}
                     className={`h-2 rounded-full transition-all ${
                       i === activeDeckIndex
                         ? "w-6 bg-emerald-500"

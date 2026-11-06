@@ -1,64 +1,99 @@
-# Portfolio Website
+# Ankit Sharma — Portfolio
 
-This repository contains a modern personal portfolio website built for showcasing professional skills, projects, experience, services, and contact details.
+Professional portfolio site showcasing projects, experience, services, and a contact form. Built with **Next.js 16**, **React 19**, and **Tailwind CSS 4**.
 
-## Overview
+**Live:** [ankitsharma9823.github.io/Portfolio](https://ankitsharma9823.github.io/Portfolio) · **Repo:** [github.com/ankitsharma9823/Portfolio](https://github.com/ankitsharma9823/Portfolio)
 
-The site presents a branded landing experience with animated hero sections, an about section, project previews, experience highlights, services, and a contact form. It is designed to emphasize polished visual presentation, fast performance, and interactive UI behaviors.
+---
 
-## What It Showcases
+## Features
 
-- Personal introduction with animated hero experience
-- Professional summary and about section
-- Featured projects with interactive previews and detailed project pages
-- Experience and service offerings
-- Contact section with direct messaging and social links
+- **Cinematic intro** — iris open/close, staggered letter reveal, social links, scroll locked until exit
+- **Hero** — word-mask headline, GSAP entrance, mouse parallax, hover micro-interactions
+- **Sections** — About, Projects (with detail pages), Experience timeline, Services, Contact
+- **Design system** — centralized typography (Roboto Delta) and color tokens (Royal Amethyst × Neon Violet, 60-30-10)
+- **Dark / light theme** — `next-themes`, system preference aware
+- **Contact form** — Next.js Server Action + Resend, toast feedback
+- **Responsive** — mobile-first layout, floating bottom nav
+- **Accessible** — semantic HTML, focus states, reduced-motion friendly patterns
 
-## Key Features
+## Tech Stack
 
-- Animated loading intro and hero interactions
-- Responsive layout optimized for desktop and mobile
-- Section-based portfolio structure (Hero, About, Projects, Experience, Services, Contact)
-- Project carousel and category browsing interface
-- Contact form handling via Next.js action
-- Downloadable resume support
-- Dark/light theme support through theme provider
-
-## Technology Stack
-
-- Next.js 16 (App Router)
-- React 19
-- Tailwind CSS 4
-- TypeScript
-- Framer Motion
-- GSAP
-- Radix UI and shadcn/ui components
-- Lucide icons, React Icons, and Phosphor icons
-- Lottie animations
+| Layer | Choices |
+| --- | --- |
+| Framework | Next.js 16 (App Router), React 19, TypeScript |
+| Styling | Tailwind CSS 4, shadcn/ui, Radix UI |
+| Animation | GSAP, Framer Motion |
+| Icons | Lucide, React Icons, Phosphor |
+| Email | Resend (Server Actions) |
+| Theming | next-themes |
 
 ## Project Structure
 
-- `app/page.tsx` - main landing page and section composition
-- `app/layout.tsx` - application shell and metadata
-- `app/actions/sendEmail.ts` - contact form action handler
-- `app/projects/[id]/page.tsx` - individual project detail pages
-- `components/section/` - portfolio sections for Hero, About, Projects, Experience, Services, Contact
-- `components/ui/` - shared UI primitives, buttons, cards, dropdowns, navigation
-- `public/` - static assets such as images, resume PDF, and media
-
-## Running Locally
-
-Install dependencies and start the Next.js development server:
-
-```bash
-npm install
-npm run dev
+```
+app/
+  layout.tsx           # Shell, fonts, theme, navbar/footer
+  page.tsx             # Landing page + intro
+  fonts.ts             # Roboto Delta (local)
+  globals.css          # Typography + color centers
+  actions/sendEmail.ts # Contact Server Action
+  projects/[id]/       # Project detail routes
+components/
+  section/             # Hero, About, Projects, Experience, Services, Contact
+  Navbar.tsx           # Floating section nav
+  Footer.tsx
+  ui/                  # shadcn primitives
+public/                # Images, resume PDF
 ```
 
-Then open `http://localhost:3000` in your browser.
+## Getting Started
 
-## Notes
+```bash
+# Install
+npm install
 
-- The portfolio is intended as a visual and functional presentation of a developer profile.
-- Project detail pages are generated for each featured project in the `app/projects/[id]` route.
-- The repository is focused on the front-end portfolio experience and includes real project showcase data.
+# Dev
+npm run dev
+
+# Production
+npm run build
+npm start
+```
+
+Open [http://localhost:3000](http://localhost:3000).
+
+### Environment variables
+
+Create `.env` (or `.env.local`) for the contact form:
+
+```bash
+RESEND_API_KEY=re_xxxxxxxx
+```
+
+Without the key the site still runs; form submissions return a friendly configuration error instead of crashing.
+
+## Scripts
+
+| Command | Description |
+| --- | --- |
+| `npm run dev` | Development server |
+| `npm run build` | Production build |
+| `npm run start` | Serve production build |
+| `npm run lint` | ESLint |
+
+## Design Notes
+
+- **Typography:** single family, body ≥ 16px, line-height 1.5–1.6, measure ~66ch, left-aligned
+- **Color:** 60% violet-tinted neutrals · 30% Royal Amethyst (`brand-*`) · 10% Neon Violet (`neon-*`); edit tokens in `app/globals.css`
+- **Motion:** intro uses clip-path iris exit; hero uses GSAP timeline + parallax
+
+## Author
+
+**Ankit Sharma** — Frontend & Full-Stack Engineer
+
+- GitHub: [ankitsharma9823](https://github.com/ankitsharma9823)
+- LinkedIn: [ankit-sharma-1aa523386](https://www.linkedin.com/in/ankit-sharma-1aa523386/)
+
+## License
+
+MIT — free to use with attribution.

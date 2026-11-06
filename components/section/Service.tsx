@@ -96,7 +96,7 @@ const Services = () => {
       id="services"
       className="relative py-20 md:py-28 bg-background text-foreground overflow-hidden"
     >
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[450px] h-[450px] bg-emerald-500/[0.04] rounded-full blur-[140px] pointer-events-none -z-10" />
+      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-[450px] h-[450px] bg-brand-500/[0.04] rounded-full blur-[140px] pointer-events-none -z-10" />
 
       <div className="container mx-auto px-6 max-w-6xl relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
@@ -110,7 +110,7 @@ const Services = () => {
             className="lg:col-span-6 space-y-8"
           >
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-tight leading-[1.1]">
-              <span className="text-emerald-500 font-medium">
+              <span className="text-brand-500 font-medium">
                 Services that
               </span>{" "}
               bring your ideas to life.
@@ -127,9 +127,9 @@ const Services = () => {
                   return (
                     <span
                       key={idx}
-                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border/70 bg-card/60 backdrop-blur-sm text-xs font-medium text-foreground shadow-sm hover:border-emerald-500/40 hover:bg-card transition-all duration-200 cursor-default"
+                      className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border/70 bg-card/60 backdrop-blur-sm text-xs font-medium text-foreground shadow-sm hover:border-brand-500/40 hover:bg-card transition-all duration-200 cursor-default"
                     >
-                      <Icon className="w-3.5 h-3.5 text-emerald-500" />
+                      <Icon className="w-3.5 h-3.5 text-brand-500" />
                       {tech.name}
                     </span>
                   );
@@ -154,8 +154,8 @@ const Services = () => {
                   variants={itemVariants}
                   className="group flex items-center gap-4 p-2 rounded-2xl transition-all duration-200 hover:bg-muted/30"
                 >
-                  <div className="w-10 h-10 rounded-full bg-slate-950 dark:bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0 text-white shadow-md group-hover:scale-105 group-hover:border-emerald-500/50 transition-all duration-200">
-                    <Icon className="w-4 h-4 text-zinc-200 group-hover:text-emerald-400 transition-colors" />
+                  <div className="w-10 h-10 rounded-full bg-slate-950 dark:bg-zinc-900 border border-zinc-800 flex items-center justify-center shrink-0 text-white shadow-md group-hover:scale-105 group-hover:border-brand-500/50 transition-all duration-200">
+                    <Icon className="w-4 h-4 text-zinc-200 group-hover:text-brand-400 transition-colors" />
                   </div>
 
                   <span className="text-base font-semibold tracking-tight text-foreground/90 group-hover:text-foreground transition-colors">

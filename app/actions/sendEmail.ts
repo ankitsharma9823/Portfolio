@@ -2,9 +2,17 @@
 
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+export type SendEmailState = { success?: boolean; error?: string } | null;
 
-export async function sendEmail(prevState: any, formData: FormData) {
+function getResend(): Resend {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error("RESEND_API_KEY is not set");
+  }
+  return new Resend(apiKey);
+}
+
+export async function sendEmail(prevState: SendEmailState, formData: FormData) {
   const name = formData.get("name") as string;
   const email = formData.get("email") as string;
   const message = formData.get("message") as string;
@@ -18,6 +26,8 @@ export async function sendEmail(prevState: any, formData: FormData) {
   }
 
   try {
+    const resend = getResend();
+
     await resend.emails.send({
       from: "Portfolio <onboarding@resend.dev>",
       to: "sharmaankit15826@gmail.com",
@@ -120,6 +130,11 @@ ${message}
     return { success: true };
   } catch (error) {
     console.error("Email send error:", error);
+    if (error instanceof Error && error.message.includes("RESEND_API_KEY")) {
+      return {
+        error: "Email is not configured on the server. Please contact me directly.",
+      };
+    }
     return { error: "Failed to send email. Please try again." };
   }
 }

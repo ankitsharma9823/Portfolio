@@ -17,7 +17,7 @@ const Footer = () => {
       <div className="container mx-auto px-6">
         <div className="flex justify-between items-center border-t border-neutral-900 pt-8">
           
-          <p className="text-neutral-600 text-xs font-mono">
+          <p className="text-neutral-400 text-sm">
             © {currentYear} ANKIT_SHARMA
           </p>
           
@@ -26,7 +26,7 @@ const Footer = () => {
               whileHover={{ y: -3, color: "#ffffff" }}
               href="https://github.com/ankitsharma9823" 
               target="_blank" 
-              className="text-neutral-500 transition-colors"
+              className="text-neutral-400 hover:text-white transition-colors"
             >
               <FaGithub className="w-6 h-6" />
             </motion.a>
@@ -35,7 +35,7 @@ const Footer = () => {
               whileHover={{ y: -3, color: "#0A66C2" }}
               href="http://linkedin.com/in/ankit-sharma-1aa523386/" 
               target="_blank" 
-              className="text-neutral-500 transition-colors"
+              className="text-neutral-400 hover:text-white transition-colors"
             >
               <FaLinkedin className="w-6 h-6" />
             </motion.a>

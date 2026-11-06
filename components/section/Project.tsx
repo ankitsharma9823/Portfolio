@@ -117,10 +117,10 @@ const Projects = () => {
         
         {/* Centered Top Heading */}
         <div className="flex flex-col items-center justify-center text-center mb-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold tracking-wider uppercase text-foreground">
+          <h2 className="text-3xl sm:text-4xl font-extrabold tracking-tight uppercase text-foreground">
             Projects
           </h2>
-          <div className="w-10 h-0.5 bg-emerald-500 mt-2 rounded-full" />
+          <div className="w-10 h-0.5 bg-brand-500 mt-2 rounded-full" />
         </div>
 
         {/* Centered Grid Layout */}
@@ -148,10 +148,10 @@ const Projects = () => {
                         {project.number}
                       </span>
                       <h3
-                        className={`text-base sm:text-lg font-extrabold tracking-tight transition-colors duration-200 ${
+                        className={`text-lg sm:text-xl font-extrabold tracking-tight transition-colors duration-200 ${
                           isSelected
                             ? "text-foreground"
-                            : "text-muted-foreground/50 group-hover:text-foreground"
+                            : "text-muted-foreground/70 group-hover:text-foreground"
                         }`}
                       >
                         {project.title}
@@ -204,15 +204,15 @@ const Projects = () => {
                 {/* Card Info */}
                 <div className="space-y-3 px-1">
                   <div>
-                    <h3 className="text-lg sm:text-xl font-bold tracking-tight uppercase">
+                    <h3 className="text-xl sm:text-2xl font-bold tracking-tight uppercase">
                       {currentProject.title}
                     </h3>
-                    <p className="text-[10px] font-mono tracking-wider text-muted-foreground/80 uppercase mt-0.5">
+                    <p className="text-xs tracking-wider text-muted-foreground uppercase mt-0.5">
                       {currentProject.category}
                     </p>
                   </div>
 
-                  <p className="text-xs text-muted-foreground leading-relaxed">
+                  <p className="text-base text-muted-foreground leading-relaxed measure">
                     {currentProject.story}
                   </p>
 
@@ -220,7 +220,7 @@ const Projects = () => {
                   <div className="space-y-2 pt-1">
                     <Link
                       href={`/projects/${currentProject.id}`}
-                      className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold py-2.5 text-[11px] tracking-wider uppercase hover:opacity-90 transition-opacity"
+                      className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg bg-zinc-900 dark:bg-zinc-100 text-zinc-100 dark:text-zinc-900 font-semibold py-2.5 text-sm tracking-wide uppercase hover:opacity-90 transition-opacity"
                     >
                       <span>View Details</span>
                       <ArrowUpRight className="w-3.5 h-3.5" />
@@ -232,7 +232,7 @@ const Projects = () => {
                           href={currentProject.demoUrl}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-background hover:bg-muted font-semibold py-2 text-[10px] tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors"
+                          className="inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-background hover:bg-muted font-semibold py-2 text-sm tracking-wide uppercase text-muted-foreground hover:text-foreground transition-colors"
                         >
                           <ExternalLink className="w-3 h-3" />
                           <span>Live Demo</span>
@@ -243,7 +243,7 @@ const Projects = () => {
                         href={currentProject.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className={`inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-background hover:bg-muted font-semibold py-2 text-[10px] tracking-wider uppercase text-muted-foreground hover:text-foreground transition-colors ${
+                        className={`inline-flex items-center justify-center gap-1.5 rounded-lg border border-border/70 bg-background hover:bg-muted font-semibold py-2 text-sm tracking-wide uppercase text-muted-foreground hover:text-foreground transition-colors ${
                           !currentProject.demoUrl ? "col-span-2" : ""
                         }`}
                       >

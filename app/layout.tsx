@@ -1,14 +1,11 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider"
 import { cn } from "@/lib/utils";
 import Navbar from "@/components/Navbar";
 import {Toaster} from "sonner"
 import Footer from "@/components/Footer";
-const jetbrainsMono = JetBrains_Mono({ subsets: ['latin'], variable: '--font-mono' });
-const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
-const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
+import { robotoDelta } from "./fonts";
 
 export const metadata: Metadata = {
   title: "Ankit | Developer",
@@ -22,10 +19,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className={cn(
-      "h-full antialiased font-mono", 
-      geistSans.variable, 
-      geistMono.variable, 
-      jetbrainsMono.variable
+      "h-full antialiased",
+      robotoDelta.variable
     )}>
 
       <body suppressHydrationWarning>
